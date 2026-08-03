@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PROJECT COLLECTION</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>:root{--ink:#172a3c;--gold:#d4ae78;--cream:#f5f1eb}*{box-sizing:border-box}body{min-height:100vh;margin:0;background:linear-gradient(135deg,#13283a,#203f50);color:white;font-family:Manrope,"Noto Sans KR",sans-serif;display:grid;place-items:center;padding:30px}.wrap{width:min(840px,100%);text-align:center}.logo{display:block;width:150px;height:60px;margin:0 auto 70px;background:#fff url("lotte-castle-logo.jpg") center/contain no-repeat}.eyebrow{color:#e6c897;font-size:11px;font-weight:800;letter-spacing:2.4px}.number{font:75px "DM Serif Display",serif;color:var(--gold);margin:22px 0 6px}.name{font-size:clamp(37px,6vw,62px);font-weight:500;letter-spacing:-3px;margin:0}.copy{line-height:1.9;color:#d5dde1;margin:28px 0 39px}.button{display:inline-flex;align-items:center;gap:33px;padding:17px 22px;background:var(--gold);color:var(--ink);font-size:12px;font-weight:800}.button span{font-size:18px}@media(max-width:600px){.logo{margin-bottom:45px}.number{font-size:60px}.name{letter-spacing:-2px}.copy{font-size:13px}}</style>
+  </head>
+  <body>
+    <main class="wrap"><a class="logo" href="index.html" aria-label="통합 현장관으로 돌아가기"></a><p class="eyebrow">PROJECT COLLECTION</p><div class="number" id="number">01</div><h1 class="name" id="name">해링턴 플레이스</h1><p class="copy">현장별 프리미엄 안내를 준비하고 있습니다.<br />사업개요, 입지, 평면도 및 관심고객 등록 정보가 곧 제공됩니다.</p><a class="button" href="index.html">통합 현장관으로 돌아가기 <span>←</span></a></main><script>const data={haerington:['01','해링턴 플레이스'],sujain:['03','문화공원 수자인'],thesharp:['04','관저동 더샵'],lepied:['05','르피에드']};const selected=data[new URLSearchParams(location.search).get('site')]||data.haerington;document.querySelector('#number').textContent=selected[0];document.querySelector('#name').textContent=selected[1];document.title=selected[1]+' | PROJECT COLLECTION';</script>
+  </body>
+</html>
