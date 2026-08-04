@@ -28,6 +28,7 @@ document.querySelectorAll('.complex-visual, .community-cards figure').forEach((e
   else visualMotionObserver.observe(element);
 });
 
+if (!window.__locationSequenceController) {
 const locationArticles = [...document.querySelectorAll('#location .location-grid article')];
 const typeLocationCopy = (element, text, interval = 22) => new Promise((resolve) => {
   let index = 0;
@@ -63,6 +64,7 @@ const locationMotionObserver = new IntersectionObserver((entries, observer) => {
 
 if (prefersReducedMotion) locationArticles.forEach((article) => article.classList.add('is-visible'));
 else if (locationGrid) locationMotionObserver.observe(locationGrid);
+}
 
 const plans = {
   '84A': { size: '전용 84.9880㎡ · 공급 114.5410㎡', layout: '4Bay 판상형 · 알파룸', count: '147세대', feature: '넓은 거실과 팬트리, 효율적인 수납 동선', image: '/floorplan-84a.png' },
