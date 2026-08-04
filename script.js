@@ -13,6 +13,54 @@ document.querySelectorAll('.main-nav a').forEach((link) => link.addEventListener
   if (menuToggle) menuToggle.textContent = '메뉴';
 }));
 
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+const visualMotionObserver = new IntersectionObserver((entries, observer) => {
+  entries.forEach((entry) => {
+    if (!entry.isIntersecting) return;
+    entry.target.classList.add('is-visible');
+    observer.unobserve(entry.target);
+  });
+}, { threshold: 0.2 });
+
+document.querySelectorAll('.complex-visual, .community-cards figure').forEach((element) => {
+  if (prefersReducedMotion) element.classList.add('is-visible');
+  else visualMotionObserver.observe(element);
+});
+
+const locationArticles = document.querySelectorAll('#location .location-grid article');
+const typeLocationCopy = (element, text, interval = 24) => {
+  let index = 0;
+  const typeNext = () => {
+    element.textContent = text.slice(0, index);
+    index += 1;
+    if (index <= text.length) window.setTimeout(typeNext, interval);
+  };
+  typeNext();
+};
+
+const locationMotionObserver = new IntersectionObserver((entries, observer) => {
+  entries.forEach((entry) => {
+    if (!entry.isIntersecting) return;
+    const article = entry.target;
+    const title = article.querySelector('h3');
+    const copy = article.querySelector('p');
+    const copyText = copy.textContent;
+    const order = [...locationArticles].indexOf(article);
+    article.classList.add('is-visible');
+    if (!prefersReducedMotion) {
+      copy.textContent = '';
+      window.setTimeout(() => typeLocationCopy(copy, copyText), 650 + (order * 220));
+    }
+    observer.unobserve(article);
+  });
+}, { threshold: 0.35 });
+
+locationArticles.forEach((article) => {
+  if (prefersReducedMotion) article.classList.add('is-visible');
+  else locationMotionObserver.observe(article);
+});
+
 const plans = {
   '84A': { size: '전용 84.9880㎡ · 공급 114.5410㎡', layout: '4Bay 판상형 · 알파룸', count: '147세대', feature: '넓은 거실과 팬트리, 효율적인 수납 동선', image: '/floorplan-84a.png' },
   '84B': { size: '전용 84.8990㎡ · 공급 113.3740㎡', layout: '타워형 · 세탁실', count: '150세대', feature: '개방감 있는 거실과 실용적인 생활 동선', image: '/floorplan-84b.png' },
