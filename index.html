@@ -170,6 +170,44 @@
     </main>
 
     <footer><div class="shell footer-content"><strong class="footer-brand">오룡 해링턴 플레이스</strong><a class="footer-phone" href="tel:16602097">대표번호 : 1660-2097</a><p>본 페이지는 상담북 내용을 요약한 안내용 페이지입니다. 정확한 분양 정보는 현장 상담을 통해 확인해 주세요.</p></div></footer>
-    <script src="script.js?v=20260804b"></script>
+    <script>
+      window.__locationSequenceController = 'inline';
+      (() => {
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const cards = [...document.querySelectorAll('#location .location-grid article')];
+        const grid = document.querySelector('#location .location-grid');
+        if (!grid || !cards.length) return;
+        const type = (element, text) => new Promise((resolve) => {
+          let index = 0;
+          const next = () => {
+            element.textContent = text.slice(0, index);
+            index += 1;
+            if (index <= text.length) window.setTimeout(next, 22);
+            else resolve();
+          };
+          next();
+        });
+        const play = async () => {
+          for (const card of cards) {
+            const copy = card.querySelector('p');
+            const text = copy.textContent;
+            card.classList.add('is-visible');
+            if (!reducedMotion) {
+              copy.textContent = '';
+              await new Promise((resolve) => window.setTimeout(resolve, 650));
+              await type(copy, text);
+              await new Promise((resolve) => window.setTimeout(resolve, 380));
+            }
+          }
+        };
+        if (reducedMotion) cards.forEach((card) => card.classList.add('is-visible'));
+        else new IntersectionObserver((entries, observer) => {
+          if (!entries.some((entry) => entry.isIntersecting)) return;
+          play();
+          observer.unobserve(grid);
+        }, { threshold: 0.35 }).observe(grid);
+      })();
+    </script>
+    <script src="script.js?v=20260804c"></script>
   </body>
 </html>
