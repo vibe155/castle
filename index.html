@@ -13,6 +13,7 @@
       .header-phone,.footer-phone{color:#f1d49d;text-decoration:none;font-size:clamp(1.45rem,2.6vw,2.6rem);font-weight:900;letter-spacing:-.03em;white-space:nowrap;line-height:1}
       .community-cards figure img{display:block;transform:scale(.9)}
       .community-cards figure.is-visible img{animation:community-zoom 8s cubic-bezier(.16,.8,.25,1) forwards}
+      #community:target .community-cards figure img{animation:community-zoom 8s cubic-bezier(.16,.8,.25,1) forwards}
       @keyframes community-zoom{from{transform:scale(.9)}to{transform:scale(1.08)}}
       #location:target .location-grid article h3{position:relative;animation:location-title-gold 1.7s ease both}
       #location:target .location-grid article h3::after{content:"";position:absolute;inset:-.24em -.38em;background:linear-gradient(105deg,transparent 18%,rgba(243,205,121,.92) 48%,transparent 78%);mix-blend-mode:screen;pointer-events:none;animation:location-gold-wrap 1.7s ease both}
@@ -30,7 +31,7 @@
       @media (max-width:1050px){.header-phone{font-size:1.25rem}}
       @media (max-width:850px){.header-phone{font-size:1rem}}
       @media (max-width:600px){.header-phone{display:block;font-size:.72rem}}
-      @media (prefers-reduced-motion:reduce){.community-cards figure.is-visible img,#location:target .location-grid article h3,#location:target .location-grid article h3::after,#location:target .location-grid article p{animation:none!important}.community-cards figure img{transform:none}#location:target .location-grid article p{clip-path:none}}
+      @media (prefers-reduced-motion:reduce){.community-cards figure.is-visible img,#community:target .community-cards figure img,#location:target .location-grid article h3,#location:target .location-grid article h3::after,#location:target .location-grid article p{animation:none!important}.community-cards figure img{transform:none}#location:target .location-grid article p{clip-path:none}}
     </style>
   </head>
   <body>
