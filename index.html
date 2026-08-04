@@ -14,10 +14,23 @@
       .community-cards figure img{display:block;transform:scale(.9)}
       .community-cards figure.is-visible img{animation:community-zoom 8s cubic-bezier(.16,.8,.25,1) forwards}
       @keyframes community-zoom{from{transform:scale(.9)}to{transform:scale(1.08)}}
+      #location:target .location-grid article h3{position:relative;animation:location-title-gold 1.7s ease both}
+      #location:target .location-grid article h3::after{content:"";position:absolute;inset:-.24em -.38em;background:linear-gradient(105deg,transparent 18%,rgba(243,205,121,.92) 48%,transparent 78%);mix-blend-mode:screen;pointer-events:none;animation:location-gold-wrap 1.7s ease both}
+      #location:target .location-grid article p{overflow:hidden;clip-path:inset(0 100% 0 0);animation:location-copy-type 1.6s steps(28,end) forwards}
+      #location:target .location-grid article:nth-child(1) h3,#location:target .location-grid article:nth-child(1) h3::after,#location:target .location-grid article:nth-child(1) p{animation-delay:.15s}
+      #location:target .location-grid article:nth-child(2) h3,#location:target .location-grid article:nth-child(2) h3::after{animation-delay:3s}
+      #location:target .location-grid article:nth-child(2) p{animation-delay:3s}
+      #location:target .location-grid article:nth-child(3) h3,#location:target .location-grid article:nth-child(3) h3::after{animation-delay:5.85s}
+      #location:target .location-grid article:nth-child(3) p{animation-delay:5.85s}
+      #location:target .location-grid article:nth-child(4) h3,#location:target .location-grid article:nth-child(4) h3::after{animation-delay:8.7s}
+      #location:target .location-grid article:nth-child(4) p{animation-delay:8.7s}
+      @keyframes location-title-gold{0%{color:inherit;text-shadow:none}35%{color:#f1d49d;text-shadow:0 0 18px rgba(234,193,107,.8)}100%{color:inherit;text-shadow:none}}
+      @keyframes location-gold-wrap{0%{opacity:0;transform:translateX(-110%)}38%{opacity:1}100%{opacity:0;transform:translateX(110%)}}
+      @keyframes location-copy-type{to{clip-path:inset(0 0 0 0)}}
       @media (max-width:1050px){.header-phone{font-size:1.25rem}}
       @media (max-width:850px){.header-phone{font-size:1rem}}
       @media (max-width:600px){.header-phone{display:block;font-size:.72rem}}
-      @media (prefers-reduced-motion:reduce){.community-cards figure.is-visible img{animation:none!important}.community-cards figure img{transform:none}}
+      @media (prefers-reduced-motion:reduce){.community-cards figure.is-visible img,#location:target .location-grid article h3,#location:target .location-grid article h3::after,#location:target .location-grid article p{animation:none!important}.community-cards figure img{transform:none}#location:target .location-grid article p{clip-path:none}}
     </style>
   </head>
   <body>
@@ -170,44 +183,6 @@
     </main>
 
     <footer><div class="shell footer-content"><strong class="footer-brand">오룡 해링턴 플레이스</strong><a class="footer-phone" href="tel:16602097">대표번호 : 1660-2097</a><p>본 페이지는 상담북 내용을 요약한 안내용 페이지입니다. 정확한 분양 정보는 현장 상담을 통해 확인해 주세요.</p></div></footer>
-    <script>
-      window.__locationSequenceController = 'inline';
-      (() => {
-        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        const cards = [...document.querySelectorAll('#location .location-grid article')];
-        const grid = document.querySelector('#location .location-grid');
-        if (!grid || !cards.length) return;
-        const type = (element, text) => new Promise((resolve) => {
-          let index = 0;
-          const next = () => {
-            element.textContent = text.slice(0, index);
-            index += 1;
-            if (index <= text.length) window.setTimeout(next, 22);
-            else resolve();
-          };
-          next();
-        });
-        const play = async () => {
-          for (const card of cards) {
-            const copy = card.querySelector('p');
-            const text = copy.textContent;
-            card.classList.add('is-visible');
-            if (!reducedMotion) {
-              copy.textContent = '';
-              await new Promise((resolve) => window.setTimeout(resolve, 650));
-              await type(copy, text);
-              await new Promise((resolve) => window.setTimeout(resolve, 380));
-            }
-          }
-        };
-        if (reducedMotion) cards.forEach((card) => card.classList.add('is-visible'));
-        else new IntersectionObserver((entries, observer) => {
-          if (!entries.some((entry) => entry.isIntersecting)) return;
-          play();
-          observer.unobserve(grid);
-        }, { threshold: 0.35 }).observe(grid);
-      })();
-    </script>
-    <script src="script.js?v=20260804c"></script>
+    <script src="script.js"></script>
   </body>
 </html>
