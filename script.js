@@ -1,49 +1,43 @@
-const modal = document.querySelector('#video-modal');
-const modalBox = modal.querySelector('.modal-box');
-const modalClose = modal.querySelector('.modal-close');
-let brandFilm;
+const menuToggle = document.querySelector('.menu-toggle');
+const nav = document.querySelector('.main-nav');
 
-function ensureBrandFilm() {
-  if (brandFilm) return brandFilm;
-  brandFilm = document.createElement('video');
-  brandFilm.className = 'brand-film-video';
-  brandFilm.src = 'lotte-castle-brand-film.mp4';
-  brandFilm.controls = true;
-  brandFilm.playsInline = true;
-  brandFilm.preload = 'metadata';
-  brandFilm.setAttribute('aria-label', '롯데캐슬 더퍼스트 홍보영상');
-  Object.assign(brandFilm.style, {
-    display: 'block', width: '100%', maxHeight: '72vh', objectFit: 'contain', background: '#000'
-  });
-  modalBox.querySelectorAll('.eyebrow, h2, .play-circle, small').forEach((element) => {
-    element.hidden = true;
-  });
-  modalBox.append(brandFilm);
-  return brandFilm;
-}
-
-function closeBrandFilm() {
-  modal.classList.remove('active');
-  modal.setAttribute('aria-hidden', 'true');
-  if (brandFilm) brandFilm.pause();
-}
-
-document.querySelector('[data-open-video]').addEventListener('click', () => {
-  modal.classList.add('active');
-  modal.setAttribute('aria-hidden', 'false');
-  const video = ensureBrandFilm();
-  video.play().catch(() => {});
+menuToggle?.addEventListener('click', () => {
+  const isOpen = nav.classList.toggle('open');
+  menuToggle.setAttribute('aria-expanded', String(isOpen));
+  menuToggle.textContent = isOpen ? '닫기' : '메뉴';
 });
 
-modalClose.addEventListener('click', closeBrandFilm);
-modal.addEventListener('click', (event) => {
-  if (event.target === modal) closeBrandFilm();
-});
+document.querySelectorAll('.main-nav a').forEach((link) => link.addEventListener('click', () => {
+  nav.classList.remove('open');
+  menuToggle?.setAttribute('aria-expanded', 'false');
+  if (menuToggle) menuToggle.textContent = '메뉴';
+}));
 
-document.querySelector('#lead-form').addEventListener('submit', (event) => {
+const plans = {
+  '84A': { size: '전용 84.9880㎡ · 공급 114.5410㎡', layout: '4Bay 판상형 · 알파룸', count: '147세대', feature: '넓은 거실과 팬트리, 효율적인 수납 동선' },
+  '84B': { size: '전용 84.8990㎡ · 공급 113.3740㎡', layout: '타워형 · 세탁실', count: '150세대', feature: '개방감 있는 거실과 실용적인 생활 동선' },
+  '84B1': { size: '전용 84.9550㎡ · 공급 113.3870㎡', layout: '타워형 · 세탁실', count: '14세대', feature: '수납과 동선을 고려한 균형 잡힌 구성' },
+  '84C': { size: '전용 84.9460㎡ · 공급 113.9310㎡', layout: '타워형 · 세탁실', count: '76세대', feature: '넓은 거실 중심의 편안한 주거공간' },
+  '84D': { size: '전용 84.9310㎡ · 공급 112.9320㎡', layout: '판상형 · 알파룸', count: '14세대', feature: '알파룸을 더한 유연한 공간 활용' },
+  '84E': { size: '전용 84.9380㎡ · 공급 113.4610㎡', layout: '판상형 · 팬트리', count: '14세대', feature: '생활 수납을 강화한 실용적 설계' },
+  '84F': { size: '전용 84.9060㎡ · 공급 112.9530㎡', layout: '판상형 · 알파룸', count: '12세대', feature: '개방감과 수납 효율을 함께 고려한 설계' },
+};
+
+document.querySelectorAll('[data-type]').forEach((button) => button.addEventListener('click', () => {
+  const selected = plans[button.dataset.type];
+  document.querySelectorAll('[data-type]').forEach((item) => {
+    item.classList.toggle('active', item === button);
+    item.setAttribute('aria-selected', String(item === button));
+  });
+  document.querySelector('[data-plan="type"]').textContent = button.dataset.type;
+  document.querySelector('[data-plan="size"]').textContent = selected.size;
+  document.querySelector('[data-plan="layout"]').textContent = selected.layout;
+  document.querySelector('[data-plan="count"]').textContent = selected.count;
+  document.querySelector('[data-plan="feature"]').textContent = selected.feature;
+}));
+
+document.querySelector('#interest-form')?.addEventListener('submit', (event) => {
   event.preventDefault();
-  const toast = document.querySelector('.toast');
-  toast.classList.add('show');
+  event.currentTarget.querySelector('.form-message').textContent = '등록 화면을 준비했습니다. 실제 상담 접수는 분양 CRM 또는 이메일 연동 후 활성화됩니다.';
   event.currentTarget.reset();
-  window.setTimeout(() => toast.classList.remove('show'), 4200);
 });
