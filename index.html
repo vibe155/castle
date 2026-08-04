@@ -78,6 +78,7 @@
       <section class="residence" id="residence">
         <div class="residence-top"><div><div class="section-label">03 / RESIDENCE</div><h2>머무는 모든 순간이<br /><em>나를 닮도록</em></h2></div><p>라이프스타일의 깊이를 더하는<br />다채로운 공간과 세심한 디테일</p></div>
         <div class="residence-showcase"><div class="home-visual" aria-label="따뜻한 라운지 공간 이미지"><div class="window-glow"></div><div class="sofa"></div><div class="table"></div><div class="plant"></div></div><div class="residence-caption"><span>THE PRIVATE LOUNGE</span><strong>일상의 품격을 높이는<br />프라이빗 커뮤니티</strong><a href="#inquiry">커뮤니티 둘러보기 ↗</a></div></div>
+        <figure class="community-promotion"><img src="community-promotion.png" alt="롯데캐슬 선착순 분양 특별혜택 안내" loading="lazy" /></figure>
       </section>
 
       <section class="complex-information" aria-label="단지정보 상세">
@@ -177,5 +178,10 @@
         ['pointerup','pointercancel','pointerleave'].forEach(name=>stage.addEventListener(name,()=>{dragging=false;stage.classList.remove('is-dragging')}));
       })();
     </script>
+    <style>
+      .community-promotion{width:min(100%,470px);margin:48px auto 0;background:#15100c;box-shadow:0 16px 36px rgba(35,26,16,.22)}
+      .community-promotion img{display:block;width:100%;height:auto}
+      @media(max-width:800px){.community-promotion{width:min(100%,400px);margin-top:32px}}
+    </style>
   </body>
 </html>
