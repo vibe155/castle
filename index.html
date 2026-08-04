@@ -9,6 +9,16 @@
     <link rel="stylesheet" href="vercel-overrides.css" />
     <link rel="stylesheet" href="community.css" />
     <link rel="stylesheet" href="plans-overrides.css" />
+    <style>
+      .header-phone,.footer-phone{color:#f1d49d;text-decoration:none;font-size:clamp(1.45rem,2.6vw,2.6rem);font-weight:900;letter-spacing:-.03em;white-space:nowrap;line-height:1}
+      .community-cards figure img{display:block;transform:scale(.9)}
+      .community-cards figure.is-visible img{animation:community-zoom 8s cubic-bezier(.16,.8,.25,1) forwards}
+      @keyframes community-zoom{from{transform:scale(.9)}to{transform:scale(1.08)}}
+      @media (max-width:1050px){.header-phone{font-size:1.25rem}}
+      @media (max-width:850px){.header-phone{font-size:1rem}}
+      @media (max-width:600px){.header-phone{display:block;font-size:.72rem}}
+      @media (prefers-reduced-motion:reduce){.community-cards figure.is-visible img{animation:none!important}.community-cards figure img{transform:none}}
+    </style>
   </head>
   <body>
     <a class="skip-link" href="#overview">본문으로 바로가기</a>
@@ -16,7 +26,7 @@
       <a class="brand" href="#top" aria-label="오룡 해링턴 플레이스 처음으로">
         <strong>오룡 해링턴 플레이스</strong>
       </a>
-      <a class="header-phone" href="tel:16602097" aria-label="대표번호 1660-2097">1660-2097</a>
+      <a class="header-phone" href="tel:16602097" aria-label="대표번호 1660-2097">대표번호 : 1660-2097</a>
       <button class="menu-toggle" type="button" aria-label="메뉴 열기" aria-expanded="false">메뉴</button>
       <nav class="main-nav" aria-label="주요 메뉴">
         <a href="#overview">사업개요</a>
@@ -159,7 +169,7 @@
       </section>
     </main>
 
-    <footer><div class="shell footer-content"><strong class="footer-brand">오룡 해링턴 플레이스</strong><a class="footer-phone" href="tel:16602097">1660-2097</a><p>본 페이지는 상담북 내용을 요약한 안내용 페이지입니다. 정확한 분양 정보는 현장 상담을 통해 확인해 주세요.</p></div></footer>
+    <footer><div class="shell footer-content"><strong class="footer-brand">오룡 해링턴 플레이스</strong><a class="footer-phone" href="tel:16602097">대표번호 : 1660-2097</a><p>본 페이지는 상담북 내용을 요약한 안내용 페이지입니다. 정확한 분양 정보는 현장 상담을 통해 확인해 주세요.</p></div></footer>
     <script src="script.js"></script>
   </body>
 </html>
