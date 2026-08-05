@@ -28,6 +28,11 @@
       @keyframes location-title-gold{0%{color:inherit;text-shadow:none}35%{color:#f1d49d;text-shadow:0 0 18px rgba(234,193,107,.8)}100%{color:inherit;text-shadow:none}}
       @keyframes location-gold-wrap{0%{opacity:0;transform:translateX(-110%)}38%{opacity:1}100%{opacity:0;transform:translateX(110%)}}
       @keyframes location-copy-type{to{clip-path:inset(0 0 0 0)}}
+      .overview-brand-visual{margin:3.2rem 0 0}.overview-brand-visual img{display:block;width:100%;max-height:720px;object-fit:cover}
+      .complex-media{display:grid;grid-template-columns:1.25fr .75fr;gap:1.25rem}.complex-media figure,.location-media figure{margin:0;overflow:hidden}.complex-media img,.location-media img{display:block;width:100%;height:100%;object-fit:cover}.complex-media figure:first-child{height:510px}.complex-media figure:last-child{height:510px}
+      .location-media{display:grid;grid-template-columns:1.25fr .875fr .875fr;gap:1rem;margin-top:3rem}.location-media figure{height:300px}
+      @media (max-width:850px){.complex-media{grid-template-columns:1fr}.complex-media figure:first-child,.complex-media figure:last-child{height:360px}.location-media{grid-template-columns:1fr 1fr}.location-media figure:first-child{grid-column:1/-1;height:380px}}
+      @media (max-width:520px){.complex-media figure:first-child,.complex-media figure:last-child,.location-media figure,.location-media figure:first-child{height:auto}.complex-media img,.location-media img{height:auto}.location-media{grid-template-columns:1fr}.location-media figure:first-child{grid-column:auto}}
       @media (max-width:1050px){.header-phone{font-size:1.25rem}}
       @media (max-width:850px){.header-phone{font-size:1rem}}
       @media (max-width:600px){.header-phone{display:block;font-size:.72rem}}
@@ -85,6 +90,7 @@
               <div><dt>입주예정</dt><dd>2029년 예정</dd></div>
             </dl>
           </div>
+          <figure class="overview-brand-visual"><img src="/overview-brand-awards.png" alt="해링턴 플레이스 브랜드 수상 및 대표 단지" /></figure>
           <p class="notice">※ 상기 내용은 인허가 및 사업 진행에 따라 변경될 수 있습니다.</p>
         </div>
       </section>
@@ -97,8 +103,9 @@
           </div>
           <p>다채로운 커뮤니티와 생활 동선을 고려한 설계로, 오늘의 편안함과 내일의 가치를 채웁니다.</p>
         </div>
-        <div class="complex-visual">
-          <img src="/image48.jpeg" alt="해링턴 플레이스 오룡역 야경 조감도" />
+        <div class="complex-media">
+          <figure><img src="/complex-aerial.png" alt="해링턴 플레이스 오룡역 조감도" /></figure>
+          <figure><img src="/complex-site-plan.png" alt="해링턴 플레이스 오룡역 단지 배치도" /></figure>
         </div>
         <div class="shell amenity-grid">
           <article><span>01</span><h3>건강한 일상</h3><p>피트니스센터, GX룸, 골프연습장과 스크린골프장을 갖춘 활력 있는 생활</p></article>
@@ -163,6 +170,11 @@
             <article><span>02</span><h3>교육 중심 생활권</h3><p>목동초·중앙중·대성중·고, 충남여중·고 등 교육시설과 둔산 학원가 접근성을 갖췄습니다.</p></article>
             <article><span>03</span><h3>도심 생활의 편의</h3><p>대전역·서대전역, 시청·정부청사 생활권, 백화점과 코스트코 등 주요 편의시설을 편리하게 이용할 수 있습니다.</p></article>
             <article><span>04</span><h3>새로운 주거벨트</h3><p>오룡역 일대 정비사업과 주거 개발 계획에 따라 약 6,000세대 규모의 신주거지 형성이 기대됩니다.</p></article>
+          </div>
+          <div class="location-media">
+            <figure><img src="/location-transit-map.png" alt="오룡역 광역 교통망 안내" /></figure>
+            <figure><img src="/location-education.png" alt="오룡역 교육 환경 안내" /></figure>
+            <figure><img src="/location-development.png" alt="오룡역 주거벨트 개발 안내" /></figure>
           </div>
           <p class="location-notice">※ 교통·개발 계획 및 소요 시간은 관계기관의 계획과 현장 여건에 따라 변경될 수 있습니다.</p>
         </div>
