@@ -32,12 +32,13 @@
       .overview-brand-visual{margin:3.2rem 0 0}.overview-brand-visual img{display:block;width:100%;max-height:720px;object-fit:cover}
       .complex-media{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.25rem}.complex-media figure,.location-media figure{margin:0;overflow:hidden}.complex-media img,.location-media img{display:block;width:100%;height:100%;object-fit:cover}.complex-media figure:first-child,.complex-media figure:last-child{height:510px}
       .location-media{display:grid;grid-template-columns:1fr;gap:4rem;margin-top:3rem}.location-media figure{position:relative;height:auto}.location-media img{height:auto;object-fit:contain}.location-media figure::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0}.location-media .location-education-card::after{background:radial-gradient(ellipse 22% 30% at 52% 55%,rgba(255,255,255,.95),rgba(255,255,255,.28) 35%,transparent 72%);mix-blend-mode:screen;animation:location-highlight .8s ease-in-out infinite}.location-media .location-development-card::after{background:radial-gradient(circle 31% at 25% 57%,rgba(255,255,255,.94),rgba(255,255,255,.26) 42%,transparent 75%);mix-blend-mode:screen;animation:location-highlight .8s ease-in-out .2s infinite}@keyframes location-highlight{0%,100%{opacity:.06;transform:scale(.94)}50%{opacity:.95;transform:scale(1.07)}}
+      .promotion-banner{padding:4rem 0;background:#06183c}.promotion-banner figure{width:min(calc(100% - 48px),460px);margin:0 auto;border:1px solid rgba(241,212,157,.8);box-shadow:0 18px 40px rgba(0,0,0,.3);overflow:hidden}.promotion-banner img{display:block;width:100%;height:auto}.floating-contact{position:fixed;right:1.5rem;bottom:1.5rem;z-index:20;display:grid;gap:.65rem}.floating-contact a{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:128px;min-height:58px;padding:.75rem 1rem;color:#fff;background:#152a56;border:1px solid rgba(241,212,157,.8);box-shadow:0 8px 20px rgba(0,0,0,.24);text-decoration:none;font-weight:900;line-height:1.2}.floating-contact a:first-child{background:#b8914f;color:#151515}.floating-contact strong{font-size:1.05rem;letter-spacing:.02em}
       #location .light-heading p{max-width:none;white-space:nowrap;font-size:clamp(1.15rem,1.8vw,1.45rem);letter-spacing:-.04em}
       @media (max-width:850px){.complex-media{grid-template-columns:1fr}.complex-media figure:first-child,.complex-media figure:last-child{height:360px}.location-media figure{height:auto}.location-media img{height:auto}}
       @media (max-width:520px){.complex-media figure:first-child,.complex-media figure:last-child,.location-media figure,.location-media figure:first-child{height:auto}.complex-media img,.location-media img{height:auto}.location-media{grid-template-columns:1fr}.location-media figure:first-child{grid-column:auto}}
       @media (max-width:1050px){.header-phone{font-size:1.25rem}}
       @media (max-width:850px){.header-phone{font-size:1rem}}
-      @media (max-width:600px){.header-phone{display:block;font-size:.72rem}.hero-image{animation:building-zoom 11s cubic-bezier(.16,.8,.25,1) forwards}.complex-visual.is-visible img{animation:building-zoom 9s cubic-bezier(.16,.8,.25,1) forwards}.community-cards figure.is-visible img,#community:target .community-cards figure img{animation:community-zoom 8s cubic-bezier(.16,.8,.25,1) forwards}.community-cards figure.is-visible::after{animation:community-sparkle 2.9s ease-in-out 2}.location-media .location-education-card::after{animation:location-highlight .8s ease-in-out infinite}.location-media .location-development-card::after{animation:location-highlight .8s ease-in-out .2s infinite}.header-phone,.footer-phone,.hero-image,.complex-visual img,.community-cards figure img,.community-cards figure::after,.location-media figure::after{will-change:transform,opacity}}
+      @media (max-width:600px){.header-phone{display:block;font-size:.72rem}.hero-image{animation:building-zoom 11s cubic-bezier(.16,.8,.25,1) forwards}.complex-visual.is-visible img{animation:building-zoom 9s cubic-bezier(.16,.8,.25,1) forwards}.community-cards figure.is-visible img,#community:target .community-cards figure img{animation:community-zoom 8s cubic-bezier(.16,.8,.25,1) forwards}.community-cards figure.is-visible::after{animation:community-sparkle 2.9s ease-in-out 2}.location-media .location-education-card::after{animation:location-highlight .8s ease-in-out infinite}.location-media .location-development-card::after{animation:location-highlight .8s ease-in-out .2s infinite}.header-phone,.footer-phone,.hero-image,.complex-visual img,.community-cards figure img,.community-cards figure::after,.location-media figure::after{will-change:transform,opacity}.promotion-banner{padding:2.5rem 0}.promotion-banner figure{width:calc(100% - 32px)}.floating-contact{right:.75rem;bottom:.75rem}.floating-contact a{min-width:108px;min-height:52px;padding:.6rem .75rem;font-size:.82rem}.floating-contact strong{font-size:.92rem}}
       @media (prefers-reduced-motion:reduce){.header-phone,.footer-phone,.community-cards figure.is-visible img,#community:target .community-cards figure img,#location:target .location-grid article h3,#location:target .location-grid article h3::after,#location:target .location-grid article p,.location-media .location-education-card::after,.location-media .location-development-card::after{animation:none!important}.community-cards figure img{transform:none}#location:target .location-grid article p{clip-path:none}}
     </style>
   </head>
@@ -70,6 +71,10 @@
         </div>
         <div class="hero-caption">※ 상기 이미지는 소비자의 이해를 돕기 위한 CG로, 실제와 차이가 있을 수 있습니다.</div>
       </section>
+
+      <aside class="promotion-banner" aria-label="오룡 해링턴 플레이스 계약 조건 안내">
+        <figure><img src="/banner-contract.png" alt="오룡 해링턴 플레이스 계약축하금 2,000만원 및 잔여세대 확인 안내" /></figure>
+      </aside>
 
       <section id="overview" class="section overview" aria-labelledby="overview-title">
         <div class="shell">
@@ -196,6 +201,11 @@
         </div>
       </section>
     </main>
+
+    <div class="floating-contact" aria-label="상담 바로가기">
+      <a href="#register">상담문의</a>
+      <a href="tel:16602097">대표번호<strong>1660-2097</strong></a>
+    </div>
 
     <footer><div class="shell footer-content"><strong class="footer-brand">오룡 해링턴 플레이스</strong><a class="footer-phone" href="tel:16602097">대표번호 : 1660-2097</a><p>본 페이지는 상담북 내용을 요약한 안내용 페이지입니다. 정확한 분양 정보는 현장 상담을 통해 확인해 주세요.</p></div></footer>
     <script src="script.js"></script>
