@@ -13,6 +13,11 @@ document.querySelectorAll('.main-nav a').forEach((link) => link.addEventListener
   if (menuToggle) menuToggle.textContent = '메뉴';
 }));
 
+const promotionBanner = document.querySelector('.promotion-banner');
+document.querySelector('.promotion-banner-close')?.addEventListener('click', () => {
+  promotionBanner?.classList.add('is-hidden');
+});
+
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 const visualMotionObserver = new IntersectionObserver((entries, observer) => {
@@ -23,7 +28,7 @@ const visualMotionObserver = new IntersectionObserver((entries, observer) => {
   });
 }, { threshold: 0.2 });
 
-document.querySelectorAll('.complex-visual, .community-cards figure').forEach((element) => {
+document.querySelectorAll('.complex-visual, .complex-media figure, .community-cards figure').forEach((element) => {
   if (prefersReducedMotion) element.classList.add('is-visible');
   else visualMotionObserver.observe(element);
 });
