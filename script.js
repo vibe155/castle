@@ -97,8 +97,34 @@ document.querySelectorAll('[data-type]').forEach((button) => button.addEventList
   planImage.alt = `${button.dataset.type} 타입 평면도`;
 }));
 
-document.querySelector('#interest-form')?.addEventListener('submit', (event) => {
+document.querySelector('#interest-form')?.addEventListener('submit', async (event) => {
   event.preventDefault();
-  event.currentTarget.querySelector('.form-message').textContent = '등록 화면을 준비했습니다. 실제 상담 접수는 분양 CRM 또는 이메일 연동 후 활성화됩니다.';
-  event.currentTarget.reset();
+  const form = event.currentTarget;
+  const message = form.querySelector('.form-message');
+  const submitButton = form.querySelector('button[type="submit"]');
+  const formData = new FormData(form);
+
+  message.textContent = '관심등록을 전송하고 있습니다.';
+  submitButton.disabled = true;
+
+  try {
+    const response = await fetch('/api/interest', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: formData.get('name'),
+        phone: formData.get('phone'),
+        message: formData.get('message')
+      })
+    });
+
+    if (!response.ok) throw new Error('Interest registration failed');
+
+    form.reset();
+    message.textContent = '관심등록이 완료되었습니다.';
+  } catch (error) {
+    message.textContent = '등록 중 문제가 발생했습니다. 잠시 후 다시 시도해 주세요.';
+  } finally {
+    submitButton.disabled = false;
+  }
 });
