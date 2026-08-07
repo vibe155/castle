@@ -77,7 +77,7 @@ export default async function handler(
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        from: '관심등록 알림 <onboarding@resend.dev>',
+        from: '관심등록 알림 <notice@mail.apt-model-house.com>',
         to: ['twogunj@gmail.com'],
         subject: '[새 관심고객 등록]',
         text: '이름: ' + name + '\n연락처: ' + phone + '\n문의내용: ' + message
