@@ -1,11 +1,13 @@
 const menuToggle = document.querySelector('.menu-toggle');
 const nav = document.querySelector('.main-nav');
 
+
 menuToggle?.addEventListener('click', () => {
   const isOpen = nav.classList.toggle('open');
   menuToggle.setAttribute('aria-expanded', String(isOpen));
   menuToggle.textContent = isOpen ? '닫기' : '메뉴';
 });
+
 
 document.querySelectorAll('.main-nav a').forEach((link) => link.addEventListener('click', () => {
   nav.classList.remove('open');
@@ -13,12 +15,15 @@ document.querySelectorAll('.main-nav a').forEach((link) => link.addEventListener
   if (menuToggle) menuToggle.textContent = '메뉴';
 }));
 
+
 const promotionBanner = document.querySelector('.promotion-banner');
 document.querySelector('.promotion-banner-close')?.addEventListener('click', () => {
   promotionBanner?.classList.add('is-hidden');
 });
 
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+const prefersReducedMotion = false; // Keep the requested visual effects consistent on mobile browsers.
+
 
 const visualMotionObserver = new IntersectionObserver((entries, observer) => {
   entries.forEach((entry) => {
@@ -28,10 +33,12 @@ const visualMotionObserver = new IntersectionObserver((entries, observer) => {
   });
 }, { threshold: 0.2 });
 
+
 document.querySelectorAll('.complex-visual, .complex-media figure, .community-cards figure').forEach((element) => {
   if (prefersReducedMotion) element.classList.add('is-visible');
   else visualMotionObserver.observe(element);
 });
+
 
 if (!window.__locationSequenceController) {
 const locationArticles = [...document.querySelectorAll('#location .location-grid article')];
@@ -45,6 +52,7 @@ const typeLocationCopy = (element, text, interval = 22) => new Promise((resolve)
   };
   typeNext();
 });
+
 
 const playLocationSequence = async () => {
   for (const article of locationArticles) {
@@ -60,6 +68,7 @@ const playLocationSequence = async () => {
   }
 };
 
+
 const locationGrid = document.querySelector('#location .location-grid');
 const locationMotionObserver = new IntersectionObserver((entries, observer) => {
   if (!entries.some((entry) => entry.isIntersecting)) return;
@@ -67,9 +76,11 @@ const locationMotionObserver = new IntersectionObserver((entries, observer) => {
   observer.unobserve(locationGrid);
 }, { threshold: 0.35 });
 
+
 if (prefersReducedMotion) locationArticles.forEach((article) => article.classList.add('is-visible'));
 else if (locationGrid) locationMotionObserver.observe(locationGrid);
 }
+
 
 const plans = {
   '84A': { size: '전용 84.9880㎡ · 공급 114.5410㎡', layout: '4Bay 판상형 · 알파룸', count: '147세대', feature: '넓은 거실과 팬트리, 효율적인 수납 동선', image: '/floorplan-84a.png' },
@@ -80,6 +91,7 @@ const plans = {
   '84E': { size: '전용 84.9380㎡ · 공급 113.4610㎡', layout: '판상형 · 팬트리', count: '14세대', feature: '생활 수납을 강화한 실용적 설계', image: '/floorplan-84e.png' },
   '84F': { size: '전용 84.9060㎡ · 공급 112.9530㎡', layout: '판상형 · 알파룸', count: '12세대', feature: '개방감과 수납 효율을 함께 고려한 설계', image: '/floorplan-84f.png' },
 };
+
 
 document.querySelectorAll('[data-type]').forEach((button) => button.addEventListener('click', () => {
   const selected = plans[button.dataset.type];
@@ -97,6 +109,7 @@ document.querySelectorAll('[data-type]').forEach((button) => button.addEventList
   planImage.alt = `${button.dataset.type} 타입 평면도`;
 }));
 
+
 document.querySelector('#interest-form')?.addEventListener('submit', async (event) => {
   event.preventDefault();
   const form = event.currentTarget;
@@ -104,8 +117,10 @@ document.querySelector('#interest-form')?.addEventListener('submit', async (even
   const submitButton = form.querySelector('button[type="submit"]');
   const formData = new FormData(form);
 
+
   message.textContent = '관심등록을 전송하고 있습니다.';
   submitButton.disabled = true;
+
 
   try {
     const response = await fetch('/api/interest', {
@@ -118,7 +133,9 @@ document.querySelector('#interest-form')?.addEventListener('submit', async (even
       })
     });
 
+
     if (!response.ok) throw new Error('Interest registration failed');
+
 
     form.reset();
     message.textContent = '관심등록이 완료되었습니다.';
