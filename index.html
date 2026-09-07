@@ -11,7 +11,31 @@
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-44HCBXSR18');
-    </script>
+          gtag('config', 'AW-17503629912');
+
+      function gtag_report_conversion(url) {
+        var callback = function () {
+          if (typeof(url) != 'undefined') {
+            window.location = url;
+          }
+        };
+
+        gtag('event', 'conversion', {
+          'send_to': 'AW-17503629912/b4vHCPS2v_AcENjksJpB',
+          'event_callback': callback
+        });
+
+        return false;
+      }
+
+      document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('a[href^="tel:"]').forEach(function (link) {
+          link.addEventListener('click', function (event) {
+            event.preventDefault();
+            gtag_report_conversion(this.href);
+          });
+        });
+      });</script>
     <meta name="description" content="해링턴 플레이스 오룡역 - 대전 중구 용두동 프리미엄 주거공간" />
     <title>해링턴 플레이스 오룡역</title>
     <link rel="stylesheet" href="styles.css" />
