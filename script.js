@@ -129,6 +129,7 @@ document.querySelector('#interest-form')?.addEventListener('submit', async (even
       body: JSON.stringify({
         name: formData.get('name'),
         phone: formData.get('phone'),
+        type: formData.get('type'),
         message: formData.get('message')
       })
     });
