@@ -95,6 +95,7 @@ const plans = {
 
 document.querySelectorAll('[data-type]').forEach((button) => button.addEventListener('click', () => {
   const selected = plans[button.dataset.type];
+  if (typeof gtag === 'function') gtag('event', 'select_floorplan', { floorplan_type: button.dataset.type });
   document.querySelectorAll('[data-type]').forEach((item) => {
     item.classList.toggle('active', item === button);
     item.setAttribute('aria-selected', String(item === button));
@@ -185,6 +186,7 @@ document.querySelector('#interest-form')?.addEventListener('submit', async (even
     if (!response.ok) throw new Error('Interest registration failed');
 
 
+    if (typeof gtag === 'function') gtag('event', 'generate_lead', { method: 'interest_form', housing_type: formData.get('type') });
     form.reset();
     message.textContent = '관심등록이 완료되었습니다.';
   } catch (error) {
