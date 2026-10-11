@@ -5,15 +5,16 @@
 ## 한 번만 필요한 카카오 설정
 
 1. [Kakao Developers](https://developers.kakao.com/)에서 앱을 만들거나 기존 앱을 선택합니다.
-2. **카카오 로그인**을 활성화하고, 사이트 Redirect URI를 등록합니다. 
+2. **카카오 로그인**을 활성화하고, REST API 키의 Redirect URI에 `https://www.apt-model-house.com/api/kakao-auth`를 등록합니다.
 3. **동의항목**에서 `talk_message`(카카오톡 메시지 전송)를 활성화합니다.
 4. 카카오 로그인으로 본인 계정을 한 번 인증하여 `talk_message` 동의가 포함된 **Refresh Token**을 발급받습니다.
 
 ## Vercel 환경변수
 
-Vercel 프로젝트 **haelingtonplace**의 Production과 Preview에 아래 두 값을 추가합니다.
+Vercel 프로젝트 **haelingtonplace**의 Production과 Preview에 아래 세 값을 추가합니다.
 
 - `KAKAO_REST_API_KEY`: Kakao Developers 앱의 REST API 키
+- `KAKAO_CLIENT_SECRET`: 해당 REST API 키의 카카오 로그인 클라이언트 시크릿
 - `KAKAO_REFRESH_TOKEN`: 위 본인 카카오 계정으로 발급받은 Refresh Token
 
 값을 저장한 뒤 재배포하면 적용됩니다. 토큰은 절대 GitHub나 브라우저 코드에 넣지 않습니다. Refresh Token이 만료되면 같은 방식으로 새로 발급해 Vercel 환경변수만 교체합니다.

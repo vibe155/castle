@@ -32,11 +32,13 @@ async function sendKakaoNotification(payload: {
   message: string;
 }) {
   const restApiKey = process.env.KAKAO_REST_API_KEY;
+  const clientSecret = process.env.KAKAO_CLIENT_SECRET;
   const refreshToken = process.env.KAKAO_REFRESH_TOKEN;
 
-  if (!restApiKey || !refreshToken) {
+  if (!restApiKey || !clientSecret || !refreshToken) {
     console.warn('[interest] Kakao notification is not configured', {
       hasRestApiKey: Boolean(restApiKey),
+      hasClientSecret: Boolean(clientSecret),
       hasRefreshToken: Boolean(refreshToken)
     });
     return { sent: false, configured: false };
@@ -45,6 +47,7 @@ async function sendKakaoNotification(payload: {
   const tokenBody = new URLSearchParams({
     grant_type: 'refresh_token',
     client_id: restApiKey,
+    client_secret: clientSecret,
     refresh_token: refreshToken
   });
   const tokenResponse = await fetch(KAKAO_TOKEN_URL, {
