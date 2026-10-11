@@ -56,6 +56,7 @@
     <meta name="twitter:image" content="https://www.apt-model-house.com/og-apt-model-house.jpg" />
     <title>해링턴 플레이스 오룡역</title>
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="consent.css" />
     <link rel="stylesheet" href="vercel-overrides.css" />
     <link rel="stylesheet" href="community.css" />
     <link rel="stylesheet" href="plans-overrides.css" />
@@ -256,13 +257,26 @@
             <label>연락처<input name="phone" type="tel" autocomplete="tel" inputmode="numeric" placeholder="010-0000-0000" required /></label>
             <label>관심 주택형<select name="type"><option>선택해 주세요</option><option>84A</option><option>84B</option><option>84B1</option><option>84C</option><option>84D</option><option>84E</option><option>84F</option></select></label>
             <label class="message-field">문의내용<textarea name="message" rows="4" placeholder="문의 내용을 입력해 주세요" required></textarea></label>
-            <label class="consent"><input name="consent" type="checkbox" required /><span>개인정보 수집·이용에 동의합니다.</span></label>
+            <fieldset class="consent-list" aria-label="개인정보 및 광고성 정보 수신 동의">
+              <div class="consent-row"><label for="privacy-consent"><input id="privacy-consent" name="privacyConsent" type="checkbox" required /><span class="consent-badge required">필수</span><strong>개인정보 수집 및 이용 동의</strong></label><button type="button" class="consent-open" data-consent="privacy">내용보기 <span aria-hidden="true">›</span></button></div>
+              <div class="consent-row"><label for="marketing-consent"><input id="marketing-consent" name="marketingConsent" type="checkbox" /><span class="consent-badge optional">선택</span><strong>광고성 정보 수신 동의</strong></label><button type="button" class="consent-open" data-consent="marketing">내용보기 <span aria-hidden="true">›</span></button></div>
+              <p>입력 정보는 상담 목적 외 사용하지 않습니다.</p>
+            </fieldset>
             <button class="button button-dark" type="submit">관심고객 등록 <span aria-hidden="true">→</span></button>
             <p class="form-message" role="status" aria-live="polite"></p>
           </form>
         </div>
       </section>
     </main>
+
+    <div class="consent-modal" id="consent-modal" hidden>
+      <div class="consent-modal-backdrop" data-consent-close></div>
+      <section class="consent-modal-panel" role="dialog" aria-modal="true" aria-labelledby="consent-modal-title">
+        <div class="consent-modal-head"><h3 id="consent-modal-title"></h3><button type="button" data-consent-close aria-label="내용 닫기">×</button></div>
+        <div id="consent-modal-content"></div>
+        <button class="button button-dark consent-confirm" type="button" data-consent-close>확인 <span aria-hidden="true">→</span></button>
+      </section>
+    </div>
 
 
     <div class="floating-contact" aria-label="상담 바로가기">

@@ -3,6 +3,8 @@ type RequestBody = {
   phone?: unknown;
   type?: unknown;
   message?: unknown;
+  privacyConsent?: unknown;
+  marketingConsent?: unknown;
 };
 
 type Response = {
@@ -30,6 +32,7 @@ async function sendKakaoNotification(payload: {
   phone: string;
   type: string;
   message: string;
+  marketingConsent: boolean;
 }) {
   const restApiKey = process.env.KAKAO_REST_API_KEY;
   const clientSecret = process.env.KAKAO_CLIENT_SECRET;
@@ -70,6 +73,7 @@ async function sendKakaoNotification(payload: {
     '이름: ' + payload.name,
     '연락처: ' + payload.phone,
     '관심 주택형: ' + (payload.type || '미선택'),
+    '광고성 정보 수신 동의: ' + (payload.marketingConsent ? '동의' : '미동의'),
     '문의내용: ' + payload.message
   ].join('\n');
   const templateObject = {
@@ -147,12 +151,15 @@ export default async function handler(
   const phone = valueOf(body.phone);
   const type = valueOf(body.type);
   const message = valueOf(body.message);
+  const privacyConsent = body.privacyConsent === true;
+  const marketingConsent = body.marketingConsent === true;
 
-  if (!name || !phone || !message) {
+  if (!name || !phone || !message || !privacyConsent) {
     console.error('[interest] Required fields are missing', {
       hasName: Boolean(name),
       hasPhone: Boolean(phone),
-      hasMessage: Boolean(message)
+      hasMessage: Boolean(message),
+      hasPrivacyConsent: privacyConsent
     });
     return response.status(400).json({
       error: 'Required fields are missing'
@@ -177,6 +184,8 @@ export default async function handler(
           phone +
           '\n관심 주택형: ' +
           (type || '미선택') +
+          '\n광고성 정보 수신 동의: ' +
+          (marketingConsent ? '동의' : '미동의') +
           '\n문의내용: ' +
           message
       })
@@ -206,7 +215,13 @@ export default async function handler(
       status: resendResponse.status
     });
 
-    const kakao = await sendKakaoNotification({ name, phone, type, message });
+    const kakao = await sendKakaoNotification({
+      name,
+      phone,
+      type,
+      message,
+      marketingConsent
+    });
     return response.status(200).json({ ok: true, kakaoNotification: kakao.sent });
   } catch (error) {
     const details = errorMessageOf(error);
