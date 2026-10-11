@@ -32,29 +32,68 @@
         document.querySelectorAll('a[href^="tel:"]').forEach(function (link) {
           link.addEventListener('click', function (event) {
             event.preventDefault();
+            gtag('event', 'click_tel', { event_category: 'engagement', link_url: this.href });
             gtag_report_conversion(this.href);
           });
         });
       });</script>
-    <meta name="description" content="해링턴 플레이스 오룡역 - 대전 중구 용두동 프리미엄 주거공간" />
+    <meta name="description" content="대전 중구 용두동 해링턴 플레이스 오룡역의 사업개요, 전용 84㎡ 타입, 입지, 커뮤니티와 관심고객 등록 정보를 확인하세요." />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
     <link rel="canonical" href="https://www.apt-model-house.com/" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="ko_KR" />
-    <meta property="og:site_name" content="대전 신축아파트 현장 둘러보기" />
+    <meta property="og:site_name" content="해링턴 플레이스 오룡역" />
     <meta property="og:url" content="https://www.apt-model-house.com/" />
-    <meta property="og:title" content="대전 신축아파트 현장 둘러보기" />
-    <meta property="og:description" content="대전 신축아파트 분양·입주 정보를 한눈에 확인하세요" />
+    <meta property="og:title" content="해링턴 플레이스 오룡역 | 대전 중구 용두동 아파트" />
+    <meta property="og:description" content="사업개요, 전용 84㎡ 타입, 입지, 커뮤니티와 관심고객 등록 정보를 확인하세요." />
     <meta property="og:image" content="https://www.apt-model-house.com/og-apt-model-house.jpg" />
     <meta property="og:image:secure_url" content="https://www.apt-model-house.com/og-apt-model-house.jpg" />
     <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="대전 신축아파트 현장 둘러보기" />
+    <meta property="og:image:alt" content="해링턴 플레이스 오룡역 조감도" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="대전 신축아파트 현장 둘러보기" />
-    <meta name="twitter:description" content="대전 신축아파트 분양·입주 정보를 한눈에 확인하세요" />
+    <meta name="twitter:title" content="해링턴 플레이스 오룡역 | 대전 중구 용두동 아파트" />
+    <meta name="twitter:description" content="사업개요, 전용 84㎡ 타입, 입지, 커뮤니티와 관심고객 등록 정보를 확인하세요." />
     <meta name="twitter:image" content="https://www.apt-model-house.com/og-apt-model-house.jpg" />
-    <title>해링턴 플레이스 오룡역</title>
+    <title>해링턴 플레이스 오룡역 | 대전 중구 용두동 아파트</title>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "name": "해링턴 플레이스 오룡역",
+            "url": "https://www.apt-model-house.com/",
+            "inLanguage": "ko-KR"
+          },
+          {
+            "@type": "ApartmentComplex",
+            "name": "해링턴 플레이스 오룡역",
+            "url": "https://www.apt-model-house.com/",
+            "telephone": "1660-2097",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "용두동 722번지 일원",
+              "addressLocality": "중구",
+              "addressRegion": "대전광역시",
+              "addressCountry": "KR"
+            },
+            "numberOfAccommodationUnits": 427
+          },
+          {
+            "@type": "FAQPage",
+            "mainEntity": [
+              {"@type":"Question","name":"해링턴 플레이스 오룡역의 위치는 어디인가요?","acceptedAnswer":{"@type":"Answer","text":"대전광역시 중구 용두동 722번지 일원에 조성 예정인 공동주택입니다."}},
+              {"@type":"Question","name":"해링턴 플레이스 오룡역은 총 몇 세대인가요?","acceptedAnswer":{"@type":"Answer","text":"지하 5층부터 지상 26층, 5개동, 총 427세대 규모로 안내되고 있습니다."}},
+              {"@type":"Question","name":"어떤 주택형을 확인할 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"전용면적 84㎡ 중심으로 84A, 84B, 84B1, 84C, 84D, 84E, 84F 타입을 안내합니다."}},
+              {"@type":"Question","name":"입주는 언제 예정되어 있나요?","acceptedAnswer":{"@type":"Answer","text":"입주 예정 시점은 2029년이며, 인허가와 사업 진행에 따라 변경될 수 있습니다."}},
+              {"@type":"Question","name":"상담은 어떻게 신청하나요?","acceptedAnswer":{"@type":"Answer","text":"대표번호 1660-2097 또는 관심고객 등록을 통해 상담을 신청할 수 있습니다."}}
+            ]
+          }
+        ]
+      }
+    </script>
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="consent.css" />
     <link rel="stylesheet" href="consultation.css" />
@@ -62,6 +101,8 @@
     <link rel="stylesheet" href="community.css" />
     <link rel="stylesheet" href="plans-overrides.css" />
     <style>
+
+      .faq{background:#f6f7fa}.faq-list{display:grid;gap:.8rem;max-width:960px}.faq-list details{background:#fff;border:1px solid #dfe3ea;border-radius:.4rem;padding:0 1.25rem}.faq-list summary{padding:1.2rem 2rem 1.2rem 0;cursor:pointer;font-size:1.05rem;font-weight:800;line-height:1.5}.faq-list p{margin:0 0 1.2rem;color:#42506a;line-height:1.75}.faq-list details[open]{border-color:#b8914f;box-shadow:0 8px 22px rgba(21,42,86,.08)}
       .header-phone,.footer-phone{color:#f1d49d;text-decoration:none;font-size:clamp(1.45rem,2.6vw,2.6rem);font-weight:900;letter-spacing:-.03em;white-space:nowrap;line-height:1;animation:phone-pulse .85s ease-in-out infinite}
       @keyframes phone-pulse{0%,100%{opacity:1;text-shadow:0 0 0 rgba(241,212,157,0)}50%{opacity:.32;text-shadow:0 0 18px rgba(241,212,157,.9)}}
       .community-cards figure img{display:block;transform:scale(.9)}
@@ -108,6 +149,7 @@
         <a href="#plans">평면도</a>
         <a href="#community">커뮤니티</a>
         <a href="#location">입지환경 분석</a>
+        <a href="#faq">자주 묻는 질문</a>
         <a class="nav-cta" href="#register">관심고객등록</a>
       </nav>
     </header>
@@ -249,6 +291,21 @@
         </div>
       </section>
 
+
+      <section id="faq" class="section faq" aria-labelledby="faq-title">
+        <div class="shell">
+          <p class="eyebrow">FAQ</p>
+          <div class="section-heading"><h2 id="faq-title">자주 묻는 질문</h2><p>상담 전 많이 확인하는 사업 정보입니다.</p></div>
+          <div class="faq-list">
+            <details><summary>해링턴 플레이스 오룡역의 위치는 어디인가요?</summary><p>대전광역시 중구 용두동 722번지 일원에 조성 예정인 공동주택입니다.</p></details>
+            <details><summary>해링턴 플레이스 오룡역은 총 몇 세대인가요?</summary><p>지하 5층부터 지상 26층, 5개동, 총 427세대 규모로 안내되고 있습니다.</p></details>
+            <details><summary>어떤 주택형을 확인할 수 있나요?</summary><p>전용면적 84㎡ 중심으로 84A, 84B, 84B1, 84C, 84D, 84E, 84F 타입을 안내합니다.</p></details>
+            <details><summary>입주는 언제 예정되어 있나요?</summary><p>입주 예정 시점은 2029년이며, 인허가와 사업 진행에 따라 변경될 수 있습니다.</p></details>
+            <details><summary>상담은 어떻게 신청하나요?</summary><p>대표번호 1660-2097 또는 관심고객 등록을 통해 상담을 신청할 수 있습니다.</p></details>
+          </div>
+          <p class="notice">※ 사업 내용과 일정은 인허가 및 사업 진행에 따라 변경될 수 있습니다.</p>
+        </div>
+      </section>
 
       <section id="register" class="section register" aria-labelledby="register-title">
         <div class="shell register-grid">
