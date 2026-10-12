@@ -195,3 +195,34 @@ document.querySelector('#interest-form')?.addEventListener('submit', async (even
     submitButton.disabled = false;
   }
 });
+
+// Funding guide: values remain in the browser and are never sent to analytics or the server.
+const fundingForm = document.querySelector('#funding-form');
+if (fundingForm) {
+  const valueOf = (name) => Math.max(0, Number(fundingForm.querySelector('[data-funding="' + name + '"]')?.value) || 0);
+  const formatWon = (amount) => amount > 0 ? Math.round(amount).toLocaleString('ko-KR') + '만원' : '입력 필요';
+  const setFundingOutput = (name, value) => { const output = document.querySelector('[data-funding-output="' + name + '"]'); if (output) output.textContent = value; };
+  const updateFunding = () => {
+    const price = valueOf('price');
+    const option = valueOf('option');
+    const fees = valueOf('fees');
+    const depositRate = valueOf('depositRate');
+    const loan = valueOf('loan');
+    const income = valueOf('income');
+    const existing = valueOf('existing');
+    const rate = valueOf('rate') / 100 / 12;
+    const years = valueOf('years');
+    const total = price + option + fees;
+    const deposit = price && depositRate ? price * depositRate / 100 : 0;
+    let monthly = 0;
+    if (loan && years) { const periods = years * 12; monthly = rate ? loan * rate * Math.pow(1 + rate, periods) / (Math.pow(1 + rate, periods) - 1) : loan / periods; }
+    const dsr = income && monthly ? ((monthly * 12 + existing) / income) * 100 : 0;
+    setFundingOutput('total', formatWon(total));
+    setFundingOutput('deposit', formatWon(deposit));
+    setFundingOutput('cash', total ? formatWon(Math.max(total - loan, 0)) : '입력 필요');
+    setFundingOutput('monthly', formatWon(monthly));
+    setFundingOutput('dsr', dsr ? dsr.toFixed(1) + '%' : '입력 필요');
+  };
+  fundingForm.addEventListener('input', updateFunding);
+}
+
