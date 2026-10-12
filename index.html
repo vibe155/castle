@@ -135,6 +135,8 @@
       @media (max-width:850px){.header-phone{font-size:1rem}}
       @media (max-width:600px){.header-phone{display:block;font-size:.72rem}.hero-image{animation:building-zoom 11s cubic-bezier(.16,.8,.25,1) forwards}.complex-visual.is-visible img,.complex-media figure.is-visible img{animation:building-zoom 9s cubic-bezier(.16,.8,.25,1) forwards}.community-cards figure.is-visible img,#community:target .community-cards figure img{animation:community-zoom 8s cubic-bezier(.16,.8,.25,1) forwards}.community-cards figure.is-visible::after{animation:community-sparkle 2.9s ease-in-out 2}.location-media .location-education-card::after{animation:location-highlight .8s ease-in-out infinite}.location-media .location-development-card::after{animation:location-highlight .8s ease-in-out .2s infinite}.header-phone,.footer-phone,.hero-image,.complex-visual img,.complex-media img,.community-cards figure img,.community-cards figure::after,.location-media figure::after{will-change:transform,opacity}.promotion-banner{padding:2.5rem 0}.promotion-banner-grid{grid-template-columns:1fr;width:calc(100% - 32px);max-width:460px}.promotion-banner-close{top:.55rem;right:.55rem;width:2.1rem;height:2.1rem;font-size:1.35rem}.floating-contact{right:.75rem;bottom:max(.75rem,calc(env(safe-area-inset-bottom) + .75rem))}.floating-contact a{min-width:108px;min-height:52px;padding:.6rem .75rem;font-size:.82rem}.floating-contact strong{font-size:.92rem}}
       
+
+      .funding{background:linear-gradient(135deg,#edf1f7 0%,#f8f4ea 100%)}.funding-grid{display:grid;grid-template-columns:minmax(0,1.18fr) minmax(280px,.82fr);gap:1.25rem;align-items:start}.funding-form,.funding-result{border:1px solid rgba(21,42,86,.16);background:#fff;box-shadow:0 14px 34px rgba(21,42,86,.08)}.funding-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;padding:1.3rem}.funding-form label{display:grid;gap:.48rem;color:#152a56;font-weight:800;font-size:.94rem}.funding-form label span{font-weight:500;color:#667085;font-size:.82rem}.funding-form input{width:100%;box-sizing:border-box;border:1px solid #cbd3df;border-radius:.2rem;background:#fff;color:#152a56;padding:.8rem .85rem;font:inherit}.funding-form input:focus{outline:3px solid rgba(184,145,79,.25);border-color:#b8914f}.funding-loan{grid-column:1/-1;border:0;border-top:1px solid #e3e8ef;margin:.3rem 0 0;padding:1.15rem 0 0}.funding-loan legend{padding:0 .45rem 0 0;color:#152a56;font-size:.98rem;font-weight:900}.funding-loan p{margin:.35rem 0 1rem;color:#526079;font-size:.85rem;line-height:1.55}.funding-loan-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.funding-result{padding:1.45rem;position:sticky;top:1.25rem}.funding-result h3{margin:0 0 .45rem;color:#152a56;font-size:1.2rem}.funding-result>p{margin:.25rem 0 1.1rem;color:#526079;font-size:.88rem;line-height:1.55}.funding-result-list{margin:0;border-top:1px solid #e3e8ef}.funding-result-row{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;padding:.9rem 0;border-bottom:1px solid #e3e8ef}.funding-result-row dt{color:#526079;font-size:.9rem}.funding-result-row dd{margin:0;color:#152a56;font-size:1.04rem;font-weight:900;text-align:right}.funding-result-row.emphasis dd{color:#a27231;font-size:1.22rem}.funding-result .button{display:flex;justify-content:center;margin-top:1.3rem}.funding-notice{margin:1rem 0 0!important;color:#667085!important;font-size:.78rem!important}@media(max-width:850px){.funding-grid{grid-template-columns:1fr}.funding-result{position:static}}@media(max-width:560px){.funding-form,.funding-loan-grid{grid-template-columns:1fr}.funding-form{padding:1rem}.funding-result{padding:1.15rem}}
     </style>
   </head>
   <body>
@@ -151,6 +153,7 @@
         <a href="#plans">평면도</a>
         <a href="#community">커뮤니티</a>
         <a href="#location">입지환경 분석</a>
+        <a href="#funding">자금계획</a>
         <a href="#faq">자주 묻는 질문</a>
         <a class="nav-cta" href="#register">관심고객등록</a>
       </nav>
@@ -294,6 +297,41 @@
         </div>
       </section>
 
+
+
+      <section id="funding" class="section funding" aria-labelledby="funding-title">
+        <div class="shell">
+          <p class="eyebrow">FUNDING GUIDE</p>
+          <div class="section-heading"><h2 id="funding-title">내 자금계획 미리보기</h2><p>실제 분양 조건은 상담으로 확인하고, 필요한 금액을 직접 입력해 가볍게 가늠해 보세요.</p></div>
+          <div class="funding-grid">
+            <form id="funding-form" class="funding-form" novalidate>
+              <label>분양가 <span>만원 단위</span><input data-funding="price" type="number" min="0" step="100" inputmode="numeric" placeholder="예: 65000" /></label>
+              <label>유상옵션·기타 <span>만원 단위</span><input data-funding="option" type="number" min="0" step="10" inputmode="numeric" placeholder="직접 입력" /></label>
+              <label>취득세·등기 등 부대비용 <span>만원 단위</span><input data-funding="fees" type="number" min="0" step="10" inputmode="numeric" placeholder="직접 입력" /></label>
+              <label>계약금 비율 <span>분양가 기준, %</span><input data-funding="depositRate" type="number" min="0" max="100" step="0.1" inputmode="decimal" placeholder="직접 입력" /></label>
+              <fieldset class="funding-loan"><legend>DSR 참고 계산</legend><p>대출 심사 결과를 대신하지 않는 참고용 계산입니다. 기존 대출 연간 원리금과 희망 조건을 입력해 보세요.</p>
+                <div class="funding-loan-grid">
+                  <label>희망 대출액 <span>만원 단위</span><input data-funding="loan" type="number" min="0" step="100" inputmode="numeric" placeholder="직접 입력" /></label>
+                  <label>연 소득 <span>만원 단위</span><input data-funding="income" type="number" min="0" step="100" inputmode="numeric" placeholder="직접 입력" /></label>
+                  <label>기존 대출 연간 원리금 <span>만원 단위</span><input data-funding="existing" type="number" min="0" step="10" inputmode="numeric" placeholder="없으면 0" /></label>
+                  <label>예상 금리 / 상환기간 <span>연 %, 년</span><div class="funding-loan-grid"><input data-funding="rate" type="number" min="0" step="0.1" inputmode="decimal" placeholder="금리" /><input data-funding="years" type="number" min="1" step="1" inputmode="numeric" placeholder="기간" /></div></label>
+                </div>
+              </fieldset>
+            </form>
+            <aside class="funding-result" aria-live="polite"><h3>입력 기준 요약</h3><p>모든 입력값은 이 브라우저에서만 계산되며 저장하거나 전송하지 않습니다.</p>
+              <dl class="funding-result-list">
+                <div class="funding-result-row emphasis"><dt>총 예상 필요자금</dt><dd data-funding-output="total">입력 필요</dd></div>
+                <div class="funding-result-row"><dt>계약금 참고</dt><dd data-funding-output="deposit">입력 필요</dd></div>
+                <div class="funding-result-row"><dt>대출 반영 필요 자기자금</dt><dd data-funding-output="cash">입력 필요</dd></div>
+                <div class="funding-result-row"><dt>예상 월 상환액</dt><dd data-funding-output="monthly">입력 필요</dd></div>
+                <div class="funding-result-row"><dt>DSR 참고</dt><dd data-funding-output="dsr">입력 필요</dd></div>
+              </dl>
+              <a class="button button-dark" href="#register">상담으로 조건 확인하기 <span aria-hidden="true">→</span></a>
+              <p class="funding-notice">※ 분양가, 계약금, 옵션, 취득 관련 비용, 대출 가능 여부와 DSR 기준은 개인 조건 및 시점에 따라 달라질 수 있습니다.</p>
+            </aside>
+          </div>
+        </div>
+      </section>
 
       <section id="faq" class="section faq" aria-labelledby="faq-title">
         <div class="shell">
