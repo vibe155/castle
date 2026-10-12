@@ -17,9 +17,24 @@ document.querySelectorAll('.main-nav a').forEach((link) => link.addEventListener
 
 
 const promotionBanner = document.querySelector('.promotion-banner');
-document.querySelector('.promotion-banner-close')?.addEventListener('click', () => {
-  promotionBanner?.classList.add('is-hidden');
+const promotionBannerDismiss = document.querySelector('.promotion-banner-dismiss');
+const promotionBannerClose = document.querySelector('.promotion-banner-close');
+const promotionBannerStorageKey = 'oryong-promotion-banner-hidden-until';
+
+const hidePromotionBanner = () => promotionBanner?.classList.add('is-hidden');
+const hiddenUntil = Number(window.localStorage.getItem(promotionBannerStorageKey));
+if (hiddenUntil > Date.now()) {
+  hidePromotionBanner();
+} else {
+  window.localStorage.removeItem(promotionBannerStorageKey);
+}
+
+promotionBannerDismiss?.addEventListener('click', () => {
+  window.localStorage.setItem(promotionBannerStorageKey, String(Date.now() + (60 * 60 * 1000)));
+  hidePromotionBanner();
 });
+
+promotionBannerClose?.addEventListener('click', hidePromotionBanner);
 
 
 const prefersReducedMotion = false; // Keep the requested visual effects consistent on mobile browsers.
@@ -225,4 +240,206 @@ if (fundingForm) {
   };
   fundingForm.addEventListener('input', updateFunding);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
