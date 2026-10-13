@@ -15,15 +15,18 @@
           gtag('config', 'AW-17503629912');
 
       function gtag_report_conversion(url) {
+        var hasNavigated = false;
         var callback = function () {
-          if (typeof(url) != 'undefined') {
-            window.location = url;
-          }
+          if (hasNavigated || typeof url === 'undefined') return;
+          hasNavigated = true;
+          window.location.assign(url);
         };
 
+        window.setTimeout(callback, 1500);
         gtag('event', 'conversion', {
           'send_to': 'AW-17503629912/b4vHCPS2v_AcENjksJpB',
-          'event_callback': callback
+          'event_callback': callback,
+          'event_timeout': 1500
         });
 
         return false;
@@ -32,12 +35,22 @@
       document.addEventListener('DOMContentLoaded', function () {
         document.querySelectorAll('a[href^="tel:"]').forEach(function (link) {
           link.addEventListener('click', function (event) {
+            if (typeof window.gtag !== 'function') return;
+
             event.preventDefault();
-            gtag('event', 'click_tel', { event_category: 'engagement', link_url: this.href });
-            gtag_report_conversion(this.href);
+            try {
+              window.gtag('event', 'click_tel', {
+                event_category: 'engagement',
+                link_url: this.href
+              });
+              gtag_report_conversion(this.href);
+            } catch (error) {
+              window.location.assign(this.href);
+            }
           });
         });
-      });</script>
+      });
+</script>
     <meta name="description" content="대전 중구 용두동 해링턴 플레이스 오룡역의 사업개요, 전용 84㎡ 타입, 입지, 커뮤니티와 관심고객 등록 정보를 확인하세요." />
     <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
     <link rel="canonical" href="https://www.apt-model-house.com/" />
