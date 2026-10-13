@@ -171,6 +171,19 @@ document.querySelectorAll('[data-consent-close]').forEach((button) => button.add
 }));
 
 
+const INTEREST_REGISTRATION_CONVERSION = 'AW-17503629912/QgqrCLbEv5sdENjksJpB';
+let interestRegistrationConversionSent = false;
+
+const reportInterestRegistrationConversion = () => {
+  if (interestRegistrationConversionSent || typeof window.gtag !== 'function') return;
+
+  interestRegistrationConversionSent = true;
+  window.gtag('event', 'conversion', {
+    send_to: INTEREST_REGISTRATION_CONVERSION
+  });
+};
+
+
 document.querySelector('#interest-form')?.addEventListener('submit', async (event) => {
   event.preventDefault();
   const form = event.currentTarget;
@@ -202,6 +215,7 @@ document.querySelector('#interest-form')?.addEventListener('submit', async (even
 
 
     if (typeof gtag === 'function') gtag('event', 'generate_lead', { method: 'interest_form', housing_type: formData.get('type') });
+    reportInterestRegistrationConversion();
     form.reset();
     message.textContent = '관심등록이 완료되었습니다.';
   } catch (error) {
