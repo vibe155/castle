@@ -1,3 +1,27 @@
-.vercel
+# Deployment and local environment
+.vercel/
+.wrangler/
+
+# Secrets: keep the template only
 .env*
 !.env.example
+.dev.vars
+*.local
+
+# Dependencies and package-manager caches
+node_modules/
+.npm/
+.pnpm-store/
+.yarn/
+
+# Generated output, logs, and coverage
+dist/
+build/
+coverage/
+*.log
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
