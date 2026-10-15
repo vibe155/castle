@@ -1,3 +1,4 @@
+document.addEventListener('click',(e)=>{const open=e.target.closest('.consent-open[data-consent="privacy"]');if(open){e.preventDefault();const modal=document.getElementById('consent-modal');if(modal){modal.hidden=false;document.body.classList.add('modal-open')}}if(e.target.closest('[data-consent-close]')){const modal=document.getElementById('consent-modal');if(modal){modal.hidden=true;document.body.classList.remove('modal-open')}}});
 const menuToggle = document.querySelector('.menu-toggle');
 const nav = document.querySelector('.main-nav');
 
