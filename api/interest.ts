@@ -5,6 +5,7 @@ type RequestBody = {
   message?: unknown;
   privacyConsent?: unknown;
   marketingConsent?: unknown;
+  submissionId?: unknown;
 };
 
 type Response = {
@@ -16,11 +17,19 @@ type Response = {
 const valueOf = (value: unknown) =>
   typeof value === 'string' ? value.trim() : '';
 
+const normalizedPhoneOf = (value: unknown) => valueOf(value).replace(/\D/g, '');
+const phonePattern = /^01[0-9][0-9]{7,8}$/;
+const submissionIdPattern = /^[A-Za-z0-9_-]{8,128}$/;
+
 const errorMessageOf = (error: unknown) =>
   error instanceof Error ? error.message : String(error);
 
 type KakaoTokenResponse = {
   access_token?: unknown;
+};
+
+type ResendEmailResponse = {
+  id?: unknown;
 };
 
 const KAKAO_NOTIFY_URL = 'https://kapi.kakao.com/v2/api/talk/memo/default/send';
@@ -148,16 +157,17 @@ export default async function handler(
   }
 
   const name = valueOf(body.name);
-  const phone = valueOf(body.phone);
+  const phone = normalizedPhoneOf(body.phone);
   const type = valueOf(body.type);
   const message = valueOf(body.message);
   const privacyConsent = body.privacyConsent === true;
   const marketingConsent = body.marketingConsent === true;
+  const submissionId = valueOf(body.submissionId);
 
-  if (!name || !phone || !message || !privacyConsent) {
+  if (!name || !phone || !message || !privacyConsent || !phonePattern.test(phone)) {
     console.error('[interest] Required fields are missing', {
       hasName: Boolean(name),
-      hasPhone: Boolean(phone),
+      hasValidPhone: phonePattern.test(phone),
       hasMessage: Boolean(message),
       hasPrivacyConsent: privacyConsent
     });
@@ -166,12 +176,19 @@ export default async function handler(
     });
   }
 
+  if (submissionId && !submissionIdPattern.test(submissionId)) {
+    return response.status(400).json({ error: 'Invalid submission identifier' });
+  }
+
   try {
     const resendResponse = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
         Authorization: 'Bearer ' + process.env.RESEND_API_KEY,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        ...(submissionId
+          ? { 'Idempotency-Key': 'interest-registration/' + submissionId }
+          : {})
       },
       body: JSON.stringify({
         from: '관심등록 알림 <notice@mail.apt-model-house.com>',
@@ -191,38 +208,38 @@ export default async function handler(
       })
     });
 
-    const resendBody = await resendResponse.text();
-    console.log('[interest] Resend response', {
-      status: resendResponse.status,
-      body: resendBody
-    });
+    const resendBody = (await resendResponse.json().catch(() => ({}))) as ResendEmailResponse;
+    const leadId = valueOf(resendBody.id);
 
-    if (!resendResponse.ok) {
+    if (!resendResponse.ok || !leadId) {
       console.error('[interest] Resend email failed', {
-        status: resendResponse.status,
-        body: resendBody
+        status: resendResponse.status
       });
       return response.status(502).json({
-        error: 'Email delivery failed',
-        resend: {
-          status: resendResponse.status,
-          body: resendBody
-        }
+        error: 'Email delivery failed'
       });
     }
 
     console.log('[interest] Registration email sent successfully', {
-      status: resendResponse.status
+      status: resendResponse.status,
+      leadId
     });
 
-    const kakao = await sendKakaoNotification({
-      name,
-      phone,
-      type,
-      message,
-      marketingConsent
-    });
-    return response.status(200).json({ ok: true, kakaoNotification: kakao.sent });
+    let kakaoNotification = false;
+    try {
+      kakaoNotification = (await sendKakaoNotification({
+        name,
+        phone,
+        type,
+        message,
+        marketingConsent
+      })).sent;
+    } catch (error) {
+      console.error('[interest] Kakao notification failed after email save', {
+        details: errorMessageOf(error)
+      });
+    }
+    return response.status(200).json({ ok: true, leadId, kakaoNotification });
   } catch (error) {
     const details = errorMessageOf(error);
     console.error('[interest] Unexpected email delivery error', { details });

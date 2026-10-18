@@ -355,7 +355,7 @@
       <section id="register" class="section register" aria-labelledby="register-title">
         <div class="shell register-grid">
           <div><p class="eyebrow">CONTACT</p><h2 id="register-title">관심고객등록</h2><p class="register-copy">관심 고객으로 등록해 주시면 분양 일정과 상담 안내를 빠르게 받아보실 수 있습니다.</p></div>
-          <form id="interest-form" class="interest-form">
+          <form id="interest-form" class="interest-form" novalidate>
             <label>성함<input name="name" type="text" autocomplete="name" placeholder="성함을 입력해 주세요" required /></label>
             <label>연락처<input name="phone" type="tel" autocomplete="tel" inputmode="numeric" placeholder="010-0000-0000" required /></label>
             <label>관심 주택형<select name="type"><option>선택해 주세요</option><option>84A</option><option>84B</option><option>84B1</option><option>84C</option><option>84D</option><option>84E</option><option>84F</option></select></label>
@@ -366,7 +366,7 @@
               <div class="consent-notice"><p>입력 정보는 상담 목적 외 사용하지 않습니다.</p><a class="quick-call" href="tel:16602097">더 빠른 상담을 원하면 전화번호를 클릭하세요.</a></div>
             </fieldset>
             <button class="button button-dark" type="submit">관심고객 등록 <span aria-hidden="true">→</span></button>
-            <p class="form-message" role="status" aria-live="polite"></p>
+            <p id="interest-form-message" class="form-message" role="alert" aria-live="assertive"></p>
           </form>
         </div>
       </section>

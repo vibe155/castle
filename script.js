@@ -172,28 +172,96 @@ document.querySelectorAll('[data-consent-close]').forEach((button) => button.add
 
 
 const INTEREST_REGISTRATION_CONVERSION = 'AW-17503629912/QgqrCLbEv5sdENjksJpB';
-let interestRegistrationConversionSent = false;
+const interestRegistrationConversionIds = new Set();
 
-const reportInterestRegistrationConversion = () => {
-  if (interestRegistrationConversionSent || typeof window.gtag !== 'function') return;
+const reportInterestRegistrationConversion = (leadId) => {
+  if (!leadId || interestRegistrationConversionIds.has(leadId) || typeof window.gtag !== 'function') return;
 
-  interestRegistrationConversionSent = true;
+  interestRegistrationConversionIds.add(leadId);
   window.gtag('event', 'conversion', {
-    send_to: INTEREST_REGISTRATION_CONVERSION
+    send_to: INTEREST_REGISTRATION_CONVERSION,
+    transaction_id: leadId
   });
 };
 
 
-document.querySelector('#interest-form')?.addEventListener('submit', async (event) => {
+const interestForm = document.querySelector('#interest-form');
+const phonePattern = /^01[0-9][0-9]{7,8}$/;
+let interestSubmissionInProgress = false;
+let interestSubmissionId = '';
+
+const createInterestSubmissionId = () =>
+  window.crypto?.randomUUID?.() ||
+  `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+
+const clearInterestFieldError = (field) => {
+  field?.removeAttribute('aria-invalid');
+};
+
+const setInterestFieldError = (field) => {
+  if (field) field.setAttribute('aria-invalid', 'true');
+};
+
+interestForm?.addEventListener('input', (event) => clearInterestFieldError(event.target));
+interestForm?.addEventListener('change', (event) => clearInterestFieldError(event.target));
+
+interestForm?.addEventListener('submit', async (event) => {
   event.preventDefault();
   const form = event.currentTarget;
   const message = form.querySelector('.form-message');
   const submitButton = form.querySelector('button[type="submit"]');
-  const formData = new FormData(form);
+  const nameField = form.elements.namedItem('name');
+  const phoneField = form.elements.namedItem('phone');
+  const typeField = form.elements.namedItem('type');
+  const messageField = form.elements.namedItem('message');
+  const privacyConsentField = form.elements.namedItem('privacyConsent');
+  const marketingConsentField = form.elements.namedItem('marketingConsent');
 
+  if (interestSubmissionInProgress) return;
 
-  message.textContent = '관심등록을 전송하고 있습니다.';
+  [nameField, phoneField, messageField, privacyConsentField].forEach(clearInterestFieldError);
+  const name = String(nameField?.value || '').trim();
+  const phone = String(phoneField?.value || '').replace(/\D/g, '');
+  const inquiry = String(messageField?.value || '').trim();
+  const privacyConsent = privacyConsentField?.checked === true;
+  const errors = [];
+
+  if (!name) {
+    errors.push('성함을 입력해 주세요.');
+    setInterestFieldError(nameField);
+  }
+  if (!phonePattern.test(phone)) {
+    errors.push('연락처를 정확히 입력해 주세요.');
+    setInterestFieldError(phoneField);
+  }
+  if (!inquiry) {
+    errors.push('문의내용을 입력해 주세요.');
+    setInterestFieldError(messageField);
+  }
+  if (!privacyConsent) {
+    errors.push('개인정보 수집 및 이용에 동의해 주세요.');
+    setInterestFieldError(privacyConsentField);
+  }
+
+  if (errors.length) {
+    message.textContent = errors.join(' ');
+    (nameField?.getAttribute('aria-invalid') === 'true' ? nameField :
+      phoneField?.getAttribute('aria-invalid') === 'true' ? phoneField :
+      messageField?.getAttribute('aria-invalid') === 'true' ? messageField : privacyConsentField)?.focus();
+    return;
+  }
+
+  phoneField.value = phone;
+  const selectedType = String(typeField?.value || '').trim();
+  const submissionId = interestSubmissionId || createInterestSubmissionId();
+  interestSubmissionId = submissionId;
+  const defaultSubmitLabel = submitButton.innerHTML;
+
+  interestSubmissionInProgress = true;
+  message.textContent = '관심고객 등록을 전송하고 있습니다.';
   submitButton.disabled = true;
+  submitButton.setAttribute('aria-busy', 'true');
+  submitButton.textContent = '관심고객 등록 중…';
 
 
   try {
@@ -201,27 +269,35 @@ document.querySelector('#interest-form')?.addEventListener('submit', async (even
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        name: formData.get('name'),
-        phone: formData.get('phone'),
-        type: formData.get('type'),
-        message: formData.get('message'),
-        privacyConsent: formData.get('privacyConsent') === 'on',
-        marketingConsent: formData.get('marketingConsent') === 'on'
+        name,
+        phone,
+        type: selectedType === '선택해 주세요' ? '' : selectedType,
+        message: inquiry,
+        privacyConsent,
+        marketingConsent: marketingConsentField?.checked === true,
+        submissionId
       })
     });
 
+    const result = await response.json().catch(() => null);
+    const leadId = typeof result?.leadId === 'string' ? result.leadId : '';
+    if (!response.ok || result?.ok !== true || !leadId) {
+      throw new Error('Interest registration failed');
+    }
 
-    if (!response.ok) throw new Error('Interest registration failed');
 
-
-    if (typeof gtag === 'function') gtag('event', 'generate_lead', { method: 'interest_form', housing_type: formData.get('type') });
-    reportInterestRegistrationConversion();
+    if (typeof gtag === 'function') gtag('event', 'generate_lead', { method: 'interest_form', housing_type: selectedType });
+    reportInterestRegistrationConversion(leadId);
     form.reset();
+    interestSubmissionId = '';
     message.textContent = '관심등록이 완료되었습니다.';
   } catch (error) {
     message.textContent = '등록 중 문제가 발생했습니다. 잠시 후 다시 시도해 주세요.';
   } finally {
+    interestSubmissionInProgress = false;
     submitButton.disabled = false;
+    submitButton.removeAttribute('aria-busy');
+    submitButton.innerHTML = defaultSubmitLabel;
   }
 });
 
