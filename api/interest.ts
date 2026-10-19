@@ -192,7 +192,7 @@ export default async function handler(
       },
       body: JSON.stringify({
         from: '관심등록 알림 <notice@mail.apt-model-house.com>',
-        to: ['twogunj@gmail.com'],
+        to: ['jwon9899@gmail.com'],
         subject: '[새 관심고객 등록]',
         text:
           '이름: ' +
